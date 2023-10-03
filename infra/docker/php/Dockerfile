@@ -22,6 +22,7 @@ RUN apt-get update \
     libzip-dev \
     libicu-dev \
     libonig-dev \
+    npm \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/* \
   && locale-gen en_US.UTF-8 \
@@ -54,3 +55,9 @@ RUN composer install -q -n --no-ansi --no-dev --no-scripts --no-progress --prefe
   && chmod -R 777 storage bootstrap/cache \
   && php artisan optimize:clear \
   && php artisan optimize
+
+# .bashrcの最低限の設定
+RUN echo "alias ls='ls -F --color=auto'" >> ~/.bashrc && \
+  echo "alias ll='ls -l'" >> ~/.bashrc && \
+  echo "alias la='ls -a'" >> ~/.bashrc && \
+  echo "alias grep='grep --color=auto'" >> ~/.bashrc
